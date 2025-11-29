@@ -14,4 +14,5 @@ module "iot_core" {
   source = "../../modules/iot-core"
 
   thing_name = var.thing_name
+  aws_region = var.aws_region
 }

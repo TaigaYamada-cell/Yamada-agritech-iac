@@ -7,15 +7,38 @@ resource "aws_iot_policy" "policy" {
   policy = data.aws_iam_policy_document.iot_policy.json
 }
 
+data "aws_caller_identity" "current" {}
+
 data "aws_iam_policy_document" "iot_policy" {
   statement {
+    effect = "Allow"
     actions = [
-      "iot:Connect",
+      "iot:Connect"
+    ]
+    resources = [
+      "arn:aws:iot:${var.aws_region}:${data.aws_caller_identity.current.account_id}:client/${var.thing_name}"
+    ]
+  }
+
+  statement {
+    effect = "Allow"
+    actions = [
       "iot:Publish",
-      "iot:Receive",
+      "iot:Receive"
+    ]
+    resources = [
+      "arn:aws:iot:${var.aws_region}:${data.aws_caller_identity.current.account_id}:topic/*"
+    ]
+  }
+
+  statement {
+    effect = "Allow"
+    actions = [
       "iot:Subscribe"
     ]
-    resources = ["*"]
+    resources = [
+      "arn:aws:iot:${var.aws_region}:${data.aws_caller_identity.current.account_id}:topicfilter/*"
+    ]
   }
 }
 
