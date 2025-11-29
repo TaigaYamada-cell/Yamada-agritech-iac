@@ -63,4 +63,3 @@ curl -o AmazonRootCA1.pem https://www.amazontrust.com/repository/AmazonRootCA1.p
 ## 注意事項
 
 - 証明書と秘密鍵は機密情報です。Git等にコミットしないでください
-- IoT Policyは現在`resources = ["*"]`で全リソースへのアクセスを許可していますが、本番環境では適切に制限してください
